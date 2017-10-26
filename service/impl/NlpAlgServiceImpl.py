@@ -1,9 +1,16 @@
+import constant.EnvConsts as envConsts
+
+
 class NlpAlgServiceImpl:
-    def __init__(self):
+    def __init__(self, port):
         self.log = {}
+        self.port = port
+        self.serverName = envConsts.NLP_ALG_SERVER_NAME
 
     def hello(self, key):
-        return "nlp: hello " + str(key)
+        print self.serverName, "server on port", self.port, ":'hello' method has been called"
+        return self.serverName + " server: hello " + str(key)
 
     def bye(self):
-        return "nlp: goodbye~"
+        print self.serverName, "server on port", self.port, ":'bye' method has been called"
+        return self.serverName + " server: goodbye~"
