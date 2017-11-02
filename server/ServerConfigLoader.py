@@ -1,4 +1,5 @@
 import threading
+import multiprocessing
 from time import sleep
 
 from thrift.protocol import TBinaryProtocol
@@ -48,13 +49,24 @@ def loadServerConfigAndStart(serverName,
 
     # start servers
     for port in range(portBegin, portEnd + 1):
-        lauchServerThread = threading.Thread(target=startServerHandle, args=(serverName,
+        # lauchServerThread = threading.Thread(target=startServerHandle, args=(serverName,
+        #                                                                      serverIP,
+        #                                                                      port,
+        #                                                                      serviceInterModuleName,
+        #                                                                      serviceInterClassName,
+        #                                                                      serviceImplModuleName,
+        #                                                                      serviceImplClassName))
+
+        # lauchServerThread.setDaemon(True)
+        # lauchServerThread.start()
+
+        lauchServerProcess = multiprocessing.Process(target=startServerHandle, args=(
+                                                                             serverName,
                                                                              serverIP,
                                                                              port,
                                                                              serviceInterModuleName,
                                                                              serviceInterClassName,
                                                                              serviceImplModuleName,
                                                                              serviceImplClassName))
-        lauchServerThread.setDaemon(True)
-        lauchServerThread.start()
+        lauchServerProcess.start()
         sleep(0.2)  # delay starting to avoid console-print exception
