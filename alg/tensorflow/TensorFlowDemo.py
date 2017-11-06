@@ -4,6 +4,7 @@ sys.path.append('/usr/lib64/python2.7/site-packages')
 import tensorflow as tf
 import numpy as np
 import os
+import constant.EnvConsts as envConsts
 
 # def train(modelPath, dataSet):
 #
@@ -52,46 +53,60 @@ import os
 
 import tensorflow as tf
 
-def demoTrain():
-    W = tf.Variable([.3], dtype=tf.float32, name='weight')
-    b = tf.Variable([-.3], dtype=tf.float32, name='bias')
-    x = tf.placeholder(tf.float32)
-    linear_model = W * x + b
-    y = tf.placeholder(tf.float32)
-    loss = tf.reduce_sum(tf.square(linear_model - y))
 
-    optimizer = tf.train.GradientDescentOptimizer(0.01)
-    train = optimizer.minimize(loss)
+class demoModel:
 
-    x_train = [1, 2, 3, 4]
-    y_train = [0, -1, -2, -3]
-    init = tf.global_variables_initializer()
+    def __init__(self):
+        self.__session = tf.Session()
+        self.__W = tf.Variable([.3], dtype=tf.float32, name='weight')
+        self.__b = tf.Variable([-.3], dtype=tf.float32, name='bias')
+        self.__saver = tf.train.Saver()
+        self.__saver.restore(self.__session, envConsts.NLP_ALG_DEMO_MODEL_PATH)
+        self.__x = tf.placeholder(tf.float32)
+        self.__predict = self.__W * self.__x + self.__b
 
-    saver = tf.train.Saver()
-    with tf.Session() as sess:
-        sess.run(init)
-        for i in range(1000):
-            sess.run(train, {x:x_train, y:y_train})
-        curr_w, curr_b, curr_loss = sess.run([W, b, loss], {x:x_train, y:y_train})
-        print("W: %s b: %s loss: %s" % (curr_w, curr_b, curr_loss))
-        print(sess.run(linear_model, {x:3}))
-        save_path = saver.save(sess, "../../model/demo_model.ckpt")
+    def demoTrain(self):
+        W = tf.Variable([.3], dtype=tf.float32, name='weight')
+        b = tf.Variable([-.3], dtype=tf.float32, name='bias')
+        x = tf.placeholder(tf.float32)
+        linear_model = W * x + b
+        y = tf.placeholder(tf.float32)
+        loss = tf.reduce_sum(tf.square(linear_model - y))
 
-def demoPredict(x_value):
-    W = tf.Variable([.3], dtype=tf.float32, name='weight')
-    b = tf.Variable([-.3], dtype=tf.float32, name='bias')
-    x = tf.placeholder(tf.float32)
-    predict = W * x + b
-    saver = tf.train.Saver()
-    with tf.Session() as sess:
-        saver.restore(sess, "../../model/demo_model.ckpt")
-        print(sess.run(predict, {x:x_value}))
+        optimizer = tf.train.GradientDescentOptimizer(0.01)
+        train = optimizer.minimize(loss)
 
-# if __name__ == "__main__":
-#     demoTrain()
+        x_train = [1, 2, 3, 4]
+        y_train = [0, -1, -2, -3]
+        init = tf.global_variables_initializer()
+
+        saver = tf.train.Saver()
+        with tf.Session() as sess:
+            sess.run(init)
+            for i in range(1000):
+                sess.run(train, {x:x_train, y:y_train})
+            curr_w, curr_b, curr_loss = sess.run([W, b, loss], {x:x_train, y:y_train})
+            print("W: %s b: %s loss: %s" % (curr_w, curr_b, curr_loss))
+            print(sess.run(linear_model, {x:3}))
+            save_path = saver.save(sess, "../../model/demo_model.ckpt")
+
+    def demoPredict(self, x_value):
+        # W = tf.Variable([.3], dtype=tf.float32, name='weight')
+        # b = tf.Variable([-.3], dtype=tf.float32, name='bias')
+        # x = tf.placeholder(tf.float32)
+        # predict = W * x + b
+        # saver = tf.train.Saver()
+        # with tf.Session() as sess:
+        #     saver.restore(sess, "../../model/demo_model.ckpt")
+        #     print(sess.run(predict, {x:x_value}))
+        return self.__session.run(self.__predict, {self.__x: x_value})
 
 if __name__ == '__main__':
-    demoPredict(10)
+    # for i in range(100):
+    demo_model = demoModel()
+    for i in range(100):
+        demo_model.demoPredict(i)
+    # demoPredict(10)
 
 # mypath = os.path.join('apple', 'banana', 'orange')
 # print mypath

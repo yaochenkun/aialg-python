@@ -1,9 +1,11 @@
-import constant.EnvConsts as envConsts
-from ServerConfigLoader import loadServerConfigAndStart
 import sys
 
 if __name__ == '__main__':
 
+    sys.path.append(r'/home/windylee/PyProj/ai-alg')
+
+    import constant.EnvConsts as envConsts
+    from ServerConfigLoader import loadServerConfigAndStart
     # load server's config and start servers
     loadServerConfigAndStart(envConsts.NLP_ALG_SERVER_NAME,
                              envConsts.SERVER_IP,

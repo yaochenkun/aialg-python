@@ -1,5 +1,6 @@
 service NlpAlgService {
   string hello(1: string key)
+  string predict(1: double origin)
   string bye()
 }
 
