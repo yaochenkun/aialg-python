@@ -6,12 +6,14 @@
 #  options string: py
 #
 
-from thrift.Thrift import TType, TMessageType, TApplicationException
 import sys
+import os.path
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+
+from thrift.Thrift import TType, TMessageType, TApplicationException
 import logging
 from thrift.Thrift import TProcessor
 from thrift.transport import TTransport
-
 
 class Iface(object):
     def hello(self, key):

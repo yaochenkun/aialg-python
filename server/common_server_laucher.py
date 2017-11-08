@@ -7,6 +7,11 @@ from thrift.server import TServer
 from thrift.transport import TSocket
 from thrift.transport import TTransport
 
+import sys
+import sys
+import os.path
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+
 
 # start thrift server on port
 def start_server_handle(server_name,

@@ -1,6 +1,9 @@
+import sys
+import os.path
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+
 import constant.server_consts as server_consts
 from base_alg_service_impl import BaseAlgServiceImpl
-
 
 class SpeechAlgServiceImpl(BaseAlgServiceImpl):
     def __init__(self, port):

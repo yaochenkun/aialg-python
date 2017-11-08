@@ -1,3 +1,8 @@
+import sys
+import os.path
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+
+
 # 9000: Nlp Haproxy 9001-9009: Nlp Servers
 # 9010: Image Haproxy 9011-9019: Image Servers
 # 9020: Speech Haproxy 9021-9029: Speech Servers

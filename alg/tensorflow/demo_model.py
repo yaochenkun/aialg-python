@@ -1,9 +1,12 @@
+import sys
+import os.path
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+
 import threading
 from time import sleep
 import constant.model_consts as model_consts
 import tensorflow as tf
 from base_model import BaseModel
-
 
 class DemoModel(BaseModel):
 
@@ -48,7 +51,7 @@ class DemoModel(BaseModel):
     def predict(self, x_value):
 
         # simulate 2s' computing of tensorflow
-        sleep(2)
+        # sleep(2)
         return self._session.run(self.__predict, {self.__x: x_value})
 
 
