@@ -1,7 +1,3 @@
-import sys
-import os.path
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-
 # nlp
 NLP_ALG_SERVICE_INTER_CLASS_NAME = 'Processor'
 NLP_ALG_SERVICE_IMPL_CLASS_NAME = 'NlpAlgServiceImpl'

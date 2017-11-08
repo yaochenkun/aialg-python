@@ -1,25 +1,23 @@
-import sys
-import os.path
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-
 import threading
 from time import sleep
 import constant.model_consts as model_consts
 import tensorflow as tf
 from base_model import BaseModel
 
+
 class DemoModel(BaseModel):
 
     def __init__(self):
+        
+        super(DemoModel, self).__init__(model_consts.NLP_ALG_DEMO_MODEL_PATH)
 
+    def defineVariables(self):
         # constant define
-        self.__W = tf.Variable([.3], dtype=tf.float32, name='weight')
-        self.__b = tf.Variable([-.3], dtype=tf.float32, name='bias')
-        BaseModel.__init__(self, model_consts.NLP_ALG_DEMO_MODEL_PATH)
-
+        self._W = tf.Variable([.3], dtype=tf.float32, name='weight')
+        self._b = tf.Variable([-.3], dtype=tf.float32, name='bias')
         # variable define
-        self.__x = tf.placeholder(tf.float32)
-        self.__predict = self.__W * self.__x + self.__b
+        self._x = tf.placeholder(tf.float32)
+        self._predict = self._W * self._x + self._b
 
     # params should be local while not member
     def train(self):
@@ -52,17 +50,7 @@ class DemoModel(BaseModel):
 
         # simulate 2s' computing of tensorflow
         # sleep(2)
-        return self._session.run(self.__predict, {self.__x: x_value})
-
-
-
-
-
-
-
-
-
-
+        return self._session.run(self._predict, {self._x: x_value})
 
 
 

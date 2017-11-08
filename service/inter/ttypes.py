@@ -7,10 +7,8 @@
 #  options string: py
 #
 
-import sys
-import os.path
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-
 from thrift.Thrift import TType, TMessageType, TFrozenDict, TException, TApplicationException
 from thrift.protocol.TProtocol import TProtocolException
+import sys
+
 from thrift.transport import TTransport
