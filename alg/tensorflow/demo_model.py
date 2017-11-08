@@ -58,6 +58,7 @@ class DemoModel(BaseModel):
 # test multi thread computing
 #######################################
 
+
 def test(thread_name, model):
 
     print thread_name, ":", model.predict(10)
@@ -69,6 +70,7 @@ def test(thread_name, model):
 #     for i in range(100):
 #         thread = threading.Thread(target=test, args=('Thread' + str(i), model,))
 #         thread.start()
+
 
 # serial computing => need 2s * 10
 if __name__ == '__main__':
