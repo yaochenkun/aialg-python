@@ -4,16 +4,16 @@ import abc
 class BaseModel(object):
 
     def __init__(self, model_path):
-        self.defineVariables()
-        self.restoreVariables(model_path)
+        self.define_variables()
+        self.restore_variables(model_path)
 
     # define model's variables
     @abc.abstractmethod
-    def defineVariables(self):
+    def define_variables(self):
         return
 
     # resotre variables from model file
-    def restoreVariables(self, model_path):
+    def restore_variables(self, model_path):
         self._model_path = model_path
         self._session = tf.Session()
         self._saver = tf.train.Saver()

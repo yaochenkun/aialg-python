@@ -11,7 +11,7 @@ class DemoModel(BaseModel):
         
         super(DemoModel, self).__init__(model_consts.NLP_ALG_DEMO_MODEL_PATH)
 
-    def defineVariables(self):
+    def define_variables(self):
         # constant define
         self._W = tf.Variable([.3], dtype=tf.float32, name='weight')
         self._b = tf.Variable([-.3], dtype=tf.float32, name='bias')
