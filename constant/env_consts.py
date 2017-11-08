@@ -8,7 +8,6 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 # 9020: Speech Haproxy 9021-9029: Speech Servers
 # 9030: Video Haproxy 9031-9039: Video Servers
 
-#SERVER_IP = '10.108.112.50'
 SERVER_IP = '127.0.0.1'
 
 NLP_ALG_SERVER_PORT_RANGE = '9001-9009'

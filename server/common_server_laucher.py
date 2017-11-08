@@ -1,3 +1,7 @@
+import sys
+import os.path
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+
 import threading
 import multiprocessing
 from time import sleep
@@ -6,11 +10,6 @@ from thrift.protocol import TBinaryProtocol
 from thrift.server import TServer
 from thrift.transport import TSocket
 from thrift.transport import TTransport
-
-import sys
-import sys
-import os.path
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 
 # start thrift server on port
