@@ -1,3 +1,7 @@
+import sys
+import os.path
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+
 import constant.server_consts as server_consts
 import json
 from alg.tensorflow.demo_model import DemoModel
