@@ -2,9 +2,7 @@ import sys
 import os.path
 # sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
-import threading
-from time import sleep
-from constant import model_consts
+from constant import module_consts
 import tensorflow as tf
 import logging
 from base_model import BaseModel
