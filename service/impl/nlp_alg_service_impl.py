@@ -5,6 +5,10 @@ import sys
 import os.path
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
+
+reload(sys)
+sys.setdefaultencoding('utf8')
+
 import constant.server_consts as server_consts
 import json
 from alg.tensorflow.demo_model import DemoModel
@@ -33,7 +37,7 @@ class NlpAlgServiceImpl(BaseAlgServiceImpl):
         text_seg = " ".join(segList)
         print "the result is ", text_seg
 
-        return json.dumps({'result': text_seg.encode('utf-8')})
+        return json.dumps({'result': text_seg})
 
     def bye(self):
 
