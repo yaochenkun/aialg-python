@@ -1,8 +1,14 @@
 import sys
 import os.path
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
-if __name__ == '__main__':
+from constant import env_consts
+from constant import server_consts
+from constant import module_consts
+from constant import class_consts
+from common_server_laucher import load_server_config_and_start
+# sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+
+def load_nlp_server():
 
     # sys.path.append(r'/home/windylee/PyProj/ai-alg')
     #
@@ -10,12 +16,6 @@ if __name__ == '__main__':
     # from common_server_laucher import loadServerConfigAndStart
 
     # load server's config and start servers
-    sys.path.append('..')
-    import constant.env_consts as env_consts
-    import constant.server_consts as server_consts
-    import constant.module_consts as module_consts
-    import constant.class_consts as class_consts
-    from common_server_laucher import load_server_config_and_start
     load_server_config_and_start(server_consts.NLP_ALG_SERVER_NAME,
                                  env_consts.SERVER_IP,
                                  env_consts.NLP_ALG_SERVER_PORT_RANGE,

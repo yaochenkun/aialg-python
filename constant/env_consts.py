@@ -1,6 +1,6 @@
 import sys
 import os.path
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+# sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 
 # 9000: Nlp Haproxy 9001-9009: Nlp Servers

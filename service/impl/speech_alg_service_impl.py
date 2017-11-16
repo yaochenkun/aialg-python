@@ -3,9 +3,10 @@ from __future__ import unicode_literals
 
 import sys
 import os.path
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+import logging
+# sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
-import constant.server_consts as server_consts
+from constant import server_consts
 from base_alg_service_impl import BaseAlgServiceImpl
 
 
@@ -16,10 +17,11 @@ class SpeechAlgServiceImpl(BaseAlgServiceImpl):
         # ex: self.__demo_model = DemoModel()
 
     def hello(self, key):
-        print self._server_name, "server on port", self._port, ":'hello' method has been called"
+        logging.info("%s server on port %s:'hello' method has been called" % (self._server_name, self._port))
+
         return self._server_name + " server: hello " + str(key)
 
     def bye(self):
-        print self._server_name, "server on port", self._port, ":'bye' method has been called"
+        logging.info("%s server on port %s:'bye' method has been called" % (self._server_name, self._port))
         return self._server_name + " server: goodbye~"
 

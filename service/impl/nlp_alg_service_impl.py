@@ -3,7 +3,8 @@ from __future__ import unicode_literals
 
 import sys
 import os.path
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+import logging
+# sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 
 reload(sys)
@@ -25,17 +26,17 @@ class NlpAlgServiceImpl(BaseAlgServiceImpl):
     # compute the result according to origin 
     def predict(self, origin):
 
-        print "start predicate, the origin value is ", origin
+        logging.info('start predicate, the origin value is %s' % origin)
         result = self._demo_model.predict(origin)
-        print "the result is ", result
+        logging.info('the result is %s'%result)
         return json.dumps({'result': str(result)})
 
     def hello(self, text):
 
-        print "start predicate, the origin value is ", text
+        logging.info('start predicate, the origin value is %s' % text)
         segList = segmenter.seg(text)
         text_seg = " ".join(segList)
-        print "the result is ", text_seg
+        logging.info('the result is %s' % text_seg)
 
         return json.dumps({'result': text_seg})
 

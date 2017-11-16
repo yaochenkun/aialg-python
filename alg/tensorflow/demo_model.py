@@ -1,11 +1,12 @@
 import sys
 import os.path
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+# sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 import threading
 from time import sleep
-import constant.model_consts as model_consts
+from constant import model_consts
 import tensorflow as tf
+import logging
 from base_model import BaseModel
 
 
@@ -46,8 +47,8 @@ class DemoModel(BaseModel):
             for i in range(1000):
                 sess.run(train, {x: x_train, y: y_train})
             curr_w, curr_b, curr_loss = sess.run([W, b, loss], {x: x_train, y: y_train})
-            print("W: %s b: %s loss: %s" % (curr_w, curr_b, curr_loss))
-            print(sess.run(linear_model, {x: 3}))
+            logging.info("W: %s b: %s loss: %s" % (curr_w, curr_b, curr_loss))
+            logging.info(sess.run(linear_model, {x: 3}))
             save_path = saver.save(sess, self._model_path)
 
     def predict(self, x_value):

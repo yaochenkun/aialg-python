@@ -1,11 +1,11 @@
 import sys
 import os.path
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+# sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 import threading
 import multiprocessing
 from time import sleep
-
+import logging
 from thrift.protocol import TBinaryProtocol
 from thrift.server import TServer
 from thrift.transport import TSocket
@@ -34,7 +34,7 @@ def start_server_handle(server_name,
 
     server = TServer.TThreadPoolServer(alg_service_processor, transport, tfactory, pfactory)
 
-    print 'Starting the', server_name,'server on IP', server_ip, 'port', port
+    logging.info('Starting the %s server on IP %s port:%s' % (server_name, server_ip, port))
     server.serve()
 
 
@@ -50,7 +50,6 @@ def load_server_config_and_start(server_name,
     port_range = server_port_range.split('-');
     port_begin = int(port_range[0])
     port_end = int(port_range[1])
-
     # start servers
     for port in range(port_begin, port_end + 1):
 
