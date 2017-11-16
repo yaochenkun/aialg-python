@@ -4,40 +4,56 @@ from __future__ import unicode_literals
 import sys
 import os.path
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-
-
 reload(sys)
 sys.setdefaultencoding('utf8')
 
 import constant.server_consts as server_consts
 import json
 from alg.tensorflow.demo_model import DemoModel
+from alg.naive.wordseg_model import WordsegModel
 from base_alg_service_impl import BaseAlgServiceImpl
-from deepnlp import segmenter
+from collections import OrderedDict
 
 class NlpAlgServiceImpl(BaseAlgServiceImpl):
     
     def __init__(self, port):
         super(NlpAlgServiceImpl, self).__init__(port, server_consts.NLP_ALG_SERVER_NAME)
         # BaseAlgServiceImpl.__init__(self, port, server_consts.NLP_ALG_SERVER_NAME)
-        self._demo_model = DemoModel()
+        self.__demo_model = DemoModel()
+        self.__wordseg_model = WordsegModel()
 
     # compute the result according to origin 
     def predict(self, origin):
 
         print "start predicate, the origin value is ", origin
-        result = self._demo_model.predict(origin)
+        result = self.__demo_model.predict(origin)
         print "the result is ", result
         return json.dumps({'result': str(result)})
 
     def hello(self, text):
 
-        print "start predicate, the origin value is ", text
-        segList = segmenter.seg(text)
-        text_seg = " ".join(segList)
-        print "the result is ", text_seg
+        seg_list = self.__wordseg_model.predict(text)
+        items = []
+        byte_from = 0
+        for i in range(len(seg_list)):
+            seg = seg_list[i]
 
-        return json.dumps({'result': text_seg})
+            byte_length = len(seg)
+            byte_offset = byte_from
+            byte_from = byte_from + byte_length
+
+            element = dict()
+            element["byte_length"] = byte_length
+            element["byte_offset"] = byte_offset
+            element["item"] = seg
+
+            items.append(element)
+
+        result = dict()
+        result["text"] = text
+        result["items"] = items
+
+        return json.dumps(result)
 
     def bye(self):
 
