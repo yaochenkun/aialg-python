@@ -78,6 +78,3 @@ class NlpAlgServiceImpl(BaseAlgServiceImpl):
         result['text'] = text
         result['items'] = items
         return json.dumps(result, ensure_ascii=False)
-
-    def bye(self):
-        return json.dumps({'result': '今天天气真好~'})
