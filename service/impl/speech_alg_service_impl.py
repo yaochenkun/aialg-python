@@ -1,27 +1,34 @@
-#coding=utf-8
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-import sys
-import os.path
 import logging
-# sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 from constant import server_consts
-from base_alg_service_impl import BaseAlgServiceImpl
+from service.impl.base_alg_service_impl import BaseAlgServiceImpl
 
 
 class SpeechAlgServiceImpl(BaseAlgServiceImpl):
+    """语音识别的thrift接口
+    """
+
     def __init__(self, port):
-        BaseAlgServiceImpl.__init__(self, port, server_consts.SPEECH_ALG_SERVER_NAME)
+        BaseAlgServiceImpl.__init__(self, port,
+                                    server_consts.SPEECH_ALG_SERVER_NAME)
         # instance speech models here
         # ex: self.__demo_model = DemoModel()
 
     def hello(self, key):
-        logging.info("%s server on port %s:'hello' method has been called" % (self._server_name, self._port))
+        """hello
+        """
+        logging.info("%s server on port %s:'hello' method has been called",
+                     self._server_name, self._port)
 
         return self._server_name + " server: hello " + str(key)
 
     def bye(self):
-        logging.info("%s server on port %s:'bye' method has been called" % (self._server_name, self._port))
+        """bye
+        """
+        logging.info("%s server on port %s:'bye' method has been called",
+                     self._server_name, self._port)
         return self._server_name + " server: goodbye~"
-

@@ -6,9 +6,11 @@
 #  options string: py
 #
 
-from thrift.Thrift import TType, TMessageType, TApplicationException
+from thrift.Thrift import TType, TMessageType, TFrozenDict, TException, TApplicationException
+from thrift.protocol.TProtocol import TProtocolException
 import sys
 import logging
+from .ttypes import *
 from thrift.Thrift import TProcessor
 from thrift.transport import TTransport
 

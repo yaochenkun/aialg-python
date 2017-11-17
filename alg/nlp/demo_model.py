@@ -1,17 +1,18 @@
-import sys
-import os.path
-# sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
-from constant import module_consts
-import tensorflow as tf
 import logging
-from base_model import BaseModel
+from constant import model_consts
+import tensorflow as tf
+from alg.nlp.base_model import BaseModel
 
 
 class DemoModel(BaseModel):
+    """用于测试thrift功能的demo model
+    """
 
     def __init__(self):
-        
+
         super(DemoModel, self).__init__(model_consts.NLP_ALG_DEMO_MODEL_PATH)
 
     def define_variables(self):
@@ -42,12 +43,15 @@ class DemoModel(BaseModel):
         saver = tf.train.Saver()
         with tf.Session() as sess:
             sess.run(init)
-            for i in range(1000):
+            for _ in range(1000):
                 sess.run(train, {x: x_train, y: y_train})
-            curr_w, curr_b, curr_loss = sess.run([W, b, loss], {x: x_train, y: y_train})
-            logging.info("W: %s b: %s loss: %s" % (curr_w, curr_b, curr_loss))
+            curr_w, curr_b, curr_loss = sess.run([W, b, loss], {
+                x: x_train,
+                y: y_train
+            })
+            logging.info("W: %s b: %s loss: %s", curr_w, curr_b, curr_loss)
             logging.info(sess.run(linear_model, {x: 3}))
-            save_path = saver.save(sess, self._model_path)
+            saver.save(sess, self._model_path)
 
     def predict(self, x_value):
 

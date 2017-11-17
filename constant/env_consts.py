@@ -1,7 +1,5 @@
-import sys
-import os.path
-# sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 # 9000: Nlp Haproxy 9001-9009: Nlp Servers
 # 9010: Image Haproxy 9011-9019: Image Servers
