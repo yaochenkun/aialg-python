@@ -1,7 +1,7 @@
 service NlpAlgThriftService {
   string predict(1: double origin)
-  string wordSeg(1: string text)
-  string wordPos(1: string text)
+  string word_seg(1: string text)
+  string word_pos(1: string text)
 }
 
 service ImageAlgThriftService {
