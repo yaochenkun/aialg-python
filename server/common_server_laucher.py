@@ -8,6 +8,7 @@ from thrift.protocol import TBinaryProtocol
 from thrift.server import TServer
 from thrift.transport import TSocket
 from thrift.transport import TTransport
+from thrift.server.TNonblockingServer import TNonblockingServer
 
 
 def start_server_handle(server_name, server_ip, port,
@@ -28,9 +29,12 @@ def start_server_handle(server_name, server_ip, port,
     alg_service_processor = AlgServiceProcessorClass(AlgServiceImplClass(port))
 
     transport = TSocket.TServerSocket(server_ip, port)
+    # tfactory = TTransport.TFramedTransportFactory()
     tfactory = TTransport.TBufferedTransportFactory()
     pfactory = TBinaryProtocol.TBinaryProtocolFactory()
 
+    # server = TNonblockingServer(
+    #     alg_service_processor, transport, tfactory, pfactory)
     server = TServer.TThreadPoolServer(alg_service_processor, transport,
                                        tfactory, pfactory)
 
