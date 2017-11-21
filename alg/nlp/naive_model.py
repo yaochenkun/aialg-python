@@ -5,6 +5,7 @@ from __future__ import unicode_literals
 
 from deepnlp import segmenter
 from deepnlp import pos_tagger
+from deepnlp import ner_tagger
 
 
 class NaiveModel(object):
@@ -13,6 +14,7 @@ class NaiveModel(object):
 
     def __init__(self):
         self._pos_tragger = pos_tagger.load_model('zh')
+        self._ner_tagger = ner_tagger.load_model('zh')
 
     def segment(self, text):
         """提供分词功能
@@ -25,8 +27,16 @@ class NaiveModel(object):
     def pos(self, text):
         """提供词性标注功能
         参数text为要进行词性标注的句子
-        返回值为dict，key为分词结果，value为没个词的词性
+        返回值为dict，key为分词结果，value为每个词的词性
         """
         words = segmenter.seg(text)
         tagging = self._pos_tragger.predict(words)
+        return tagging
+
+    def ner(self, text):
+        """提供命名实体识别功能
+        参数text为要进行命名实体识别的句子
+        """
+        words = segmenter.seg(text)
+        tagging = self._ner_tagger.predict(words)
         return tagging
