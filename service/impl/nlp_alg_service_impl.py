@@ -61,17 +61,17 @@ class NlpAlgServiceImpl(BaseAlgServiceImpl):
         """词性标注接口
         """
         tagging = self.__naive_model.pos(text)
-        result = self.generate_result(tagging, 'pos')
+        result = self.generate_result(tagging, text, 'pos')
         return json.dumps(result, ensure_ascii=False)
 
     def word_ner(self, text):
         """命名实体识别接口
         """
         tagging = self.__naive_model.ner(text)
-        result = self.generate_result(tagging, 'ner')
-        return json.dumps(, ensure_ascii=False)
+        result = self.generate_result(tagging, text, 'ner')
+        return json.dumps(result, ensure_ascii=False)
 
-    def generate_result(self, tagging, func_name='pos'):
+    def generate_result(self, tagging, text, func_name='pos'):
         items = []
         byte_from = 0
         for word, pos in tagging:
@@ -83,7 +83,7 @@ class NlpAlgServiceImpl(BaseAlgServiceImpl):
             element['item'] = word
             element[func_name] = pos
 
-            items.append[element]
+            items.append(element)
         result = dict()
         result['text'] = text
         result['items'] = items
