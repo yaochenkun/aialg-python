@@ -25,66 +25,66 @@ class NlpAlgServiceImpl(BaseAlgServiceImpl):
         self.__demo_model = DemoModel()
         self.__naive_model = NaiveModel()
 
-    def predict(self, origin):
-        """ compute the result according to origin
-        """
+    # def predict(self, origin):
+    #     """ compute the result according to origin
+    #     """
 
-        logging.info('start predicate, the origin value is %s', origin)
-        result = self.__demo_model.predict(origin)
-        logging.info('the result is %s', result)
-        return json.dumps({'result': str(result)})
+    #     logging.info('start predicate, the origin value is %s', origin)
+    #     result = self.__demo_model.predict(origin)
+    #     logging.info('the result is %s', result)
+    #     return json.dumps({'result': str(result)})
 
-    def word_seg(self, text):
-        """ 分词接口
-        """
-        seg_list = self.__naive_model.segment(text)
-        items = []
-        byte_from = 0
-        for seg in seg_list:
-            byte_length = len(seg)
-            byte_offset = byte_from
-            byte_from = byte_from + byte_length
+    # def word_seg(self, text):
+    #     """ 分词接口
+    #     """
+    #     seg_list = self.__naive_model.segment(text)
+    #     items = []
+    #     byte_from = 0
+    #     for seg in seg_list:
+    #         byte_length = len(seg)
+    #         byte_offset = byte_from
+    #         byte_from = byte_from + byte_length
 
-            element = dict()
-            element["byte_length"] = byte_length
-            element["byte_offset"] = byte_offset
-            element["item"] = seg
+    #         element = dict()
+    #         element["byte_length"] = byte_length
+    #         element["byte_offset"] = byte_offset
+    #         element["item"] = seg
 
-            items.append(element)
+    #         items.append(element)
 
-        result = dict()
-        result["text"] = text
-        result["items"] = items
-        return json.dumps(result, ensure_ascii=False)
+    #     result = dict()
+    #     result["text"] = text
+    #     result["items"] = items
+    #     return json.dumps(result, ensure_ascii=False)
 
-    def word_pos(self, text):
-        """词性标注接口
-        """
-        tagging = self.__naive_model.pos(text)
-        result = self.generate_result(tagging, text, 'pos')
-        return json.dumps(result, ensure_ascii=False)
+    # def word_pos(self, text):
+    #     """词性标注接口
+    #     """
+    #     tagging = self.__naive_model.pos(text)
+    #     result = self.generate_result(tagging, text, 'pos')
+    #     return json.dumps(result, ensure_ascii=False)
 
-    def word_ner(self, text):
-        """命名实体识别接口
-        """
-        tagging = self.__naive_model.ner(text)
-        result = self.generate_result(tagging, text, 'ner')
-        return json.dumps(result, ensure_ascii=False)
+    # def word_ner(self, text):
+    #     """命名实体识别接口
+    #     """
+    #     tagging = self.__naive_model.ner(text)
+    #     result = self.generate_result(tagging, text, 'ner')
+    #     return json.dumps(result, ensure_ascii=False)
 
-    def generate_result(self, tagging, text, func_name='pos'):
-        items = []
-        byte_from = 0
-        for word, pos in tagging:
-            byte_length = len(word)
-            byte_offset, byte_from = byte_from, byte_from + byte_length
-            element = dict()
-            element['byte_length'] = byte_length
-            element['byte_offset'] = byte_offset
-            element['item'] = word
-            element[func_name] = pos
+    # def generate_result(self, tagging, text, func_name='pos'):
+    #     items = []
+    #     byte_from = 0
+    #     for word, pos in tagging:
+    #         byte_length = len(word)
+    #         byte_offset, byte_from = byte_from, byte_from + byte_length
+    #         element = dict()
+    #         element['byte_length'] = byte_length
+    #         element['byte_offset'] = byte_offset
+    #         element['item'] = word
+    #         element[func_name] = pos
 
-            items.append(element)
-        result = dict()
-        result['text'] = text
-        result['items'] = items
-        return result
+    #         items.append(element)
+    #     result = dict()
+    #     result['text'] = text
+    #     result['items'] = items
+    #     return result

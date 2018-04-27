@@ -6,6 +6,7 @@ service nlp_alg_service {
 }
 
 service image_alg_service {
+  string face_sim(1: string img_base64_1, 2: string img_base64_2)
 }
 
 service speech_alg_service {

@@ -3,9 +3,14 @@
 
 from __future__ import unicode_literals
 import logging
+import json
+import sys
 
 from constant import server_consts
 from service.impl.base_alg_service_impl import BaseAlgServiceImpl
+
+reload(sys)
+sys.setdefaultencoding('utf8')
 
 
 class ImageAlgServiceImpl(BaseAlgServiceImpl):
@@ -18,16 +23,6 @@ class ImageAlgServiceImpl(BaseAlgServiceImpl):
         # instance image models here
         # ex: self.__demo_model = DemoModel()
 
-    def hello(self, key):
-        """hello
-        """
-        logging.info('%s server on port %s : "hello" method has been called',
-                     self._server_name, self._port)
-        return self._server_name + " server: hello " + str(key)
-
-    def bye(self):
-        """bye
-        """
-        logging.info('%a server on port %s "bye" method has been called',
-                     self._server_name, self._port)
-        return self._server_name + " server: goodbye~"
+    def face_sim(self, img_base64_1, img_base64_2):
+        logging.info("the client visit face_sim")
+        return json.dumps({'sim':'80%'})
